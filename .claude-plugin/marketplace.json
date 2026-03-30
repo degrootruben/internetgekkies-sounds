@@ -1,0 +1,12 @@
+{
+  "name": "internetgekkies-sounds",
+  "owner": {
+    "name": "rubenmarcus"
+  },
+  "plugins": [
+    {
+      "name": "internetgekkies-sounds",
+      "source": "./"
+    }
+  ]
+}
