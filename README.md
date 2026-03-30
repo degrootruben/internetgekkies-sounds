@@ -1,6 +1,6 @@
 # internetgekkies-sounds
 
-A Claude Code plugin that plays random iconic Dutch [Internetgekkies](https://www.youtube.com/@Internetgekkies) sound clips whenever Claude finishes a task or sends a notification.
+A Claude Code plugin that plays random iconic Dutch Internetgekkies sound clips whenever Claude finishes a task or sends a notification.
 
 Featuring classics like "dikke bmw", "KRAKAKA", "ik wil kaas", "mand", and many more.
 
@@ -45,18 +45,19 @@ Drop any `.mp3` file into the `sounds/` folder and it will be included in the ra
 | File | Description |
 |------|-------------|
 | `dikke-bmw.mp3` | Dikke BMW! |
+| `horsefighter.mp3` | Horsefighter |
 | `KRAKAKA.mp3` | KRAKAKA |
 | `mand.mp3` | Mand! |
 | `ik-wil-kaas.mp3` | Ik wil kaas |
 | `rustaagh.mp3` | Rustaagh |
-| `helemaal-gek.mp3` | Helemaal gek |
+| `helemaal-gek.mp3` | Joost, helemaal gek |
 | `biem.mp3` | Biem |
-| `willy.mp3` | Willy |
+| `willy.mp3` | Willy! |
 | `haha-bier.mp3` | Haha bier |
 | `lidl.mp3` | Lidl |
 | `knettah.mp3` | Knettah |
 | `altijd-herres.mp3` | Altijd herres |
-| `vuurwerkje.mp3` | Vuurwerkje |
+| `vuurwerkje.mp3` | Vuurwerkje afgestoken |
 | `diadeem.mp3` | Diadeem |
 | `doeken.mp3` | Doeken |
 | ...and 26 more | |
