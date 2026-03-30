@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Plays random iconic Dutch Internetgekkies sound clips when Claude finishes a task or sends a notification",
   "author": {
-    "name": "rubenmarcus",
-    "url": "https://github.com/rubenmarcus"
+    "name": "degrootruben",
+    "url": "https://github.com/degrootruben"
   },
-  "repository": "https://github.com/rubenmarcus/internetgekkies-sounds",
+  "repository": "https://github.com/degrootruben/internetgekkies-sounds",
   "license": "MIT",
   "keywords": ["sounds", "dutch", "internetgekkies", "notification", "fun", "audio"],
   "hooks": "./hooks/hooks.json"

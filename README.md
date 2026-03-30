@@ -9,8 +9,8 @@ Featuring classics like "dikke bmw", "KRAKAKA", "ik wil kaas", "mand", and many 
 ### From GitHub Marketplace
 
 ```
-/plugin marketplace add rubenmarcus/internetgekkies-sounds
-/plugin install internetgekkies-sounds@rubenmarcus-internetgekkies-sounds
+/plugin marketplace add degrootruben/internetgekkies-sounds
+/plugin install internetgekkies-sounds@degrootruben-internetgekkies-sounds
 ```
 
 ### Local Development
