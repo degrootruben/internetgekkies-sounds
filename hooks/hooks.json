@@ -1,12 +1,24 @@
 {
-  "description": "Plays a random Internetgekkies sound clip on Stop and Notification events",
+  "description": "Plays a random Internetgekkies sound clip on Stop, error, Notification, and SessionStart events",
   "hooks": {
     "Stop": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "VOLUME=50 node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\"",
+            "command": "SOUND_EVENT=stop VOLUME=50 node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\"",
+            "timeout": 10,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "SOUND_EVENT=error VOLUME=50 node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\"",
             "timeout": 10,
             "async": true
           }
@@ -19,7 +31,20 @@
         "hooks": [
           {
             "type": "command",
-            "command": "VOLUME=50 node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\"",
+            "command": "SOUND_EVENT=notification VOLUME=50 node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\"",
+            "timeout": 10,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "SOUND_EVENT=startup VOLUME=50 node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\"",
             "timeout": 10,
             "async": true
           }
