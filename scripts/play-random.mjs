@@ -25,7 +25,7 @@ let player;
 
 if (os === "darwin") {
   // macOS
-  player = spawn("afplay", [filePath], { detached: true, stdio: "ignore" });
+  player = spawn("afplay", [filePath], { stdio: "ignore" });
 } else if (os === "win32") {
   // Windows — use PowerShell to play mp3 via Windows Media Player COM object
   const psScript = `
@@ -38,7 +38,6 @@ if (os === "darwin") {
     $player.Close()
   `;
   player = spawn("powershell", ["-NoProfile", "-Command", psScript], {
-    detached: true,
     stdio: "ignore",
   });
 } else {
@@ -51,7 +50,7 @@ if (os === "darwin") {
           : cmd === "mpv"
             ? ["--no-video", filePath]
             : [filePath];
-      player = spawn(cmd, args, { detached: true, stdio: "ignore" });
+      player = spawn(cmd, args, { stdio: "ignore" });
       break;
     } catch {
       continue;
@@ -59,6 +58,3 @@ if (os === "darwin") {
   }
 }
 
-if (player) {
-  player.unref();
-}
