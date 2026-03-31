@@ -9,7 +9,6 @@
   "repository": "https://github.com/degrootruben/internetgekkies-sounds",
   "license": "MIT",
   "keywords": ["sounds", "dutch", "internetgekkies", "notification", "fun", "audio"],
-  "hooks": "./hooks/hooks.json",
   "userConfig": {
     "volume": {
       "description": "Volume level from 0 to 100 (default: 50)",
