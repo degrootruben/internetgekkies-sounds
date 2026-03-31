@@ -19,19 +19,24 @@ if (files.length === 0) {
 const file = files[Math.floor(Math.random() * files.length)];
 const filePath = join(soundsDir, file);
 
+// Volume: 0-100 from userConfig, default 50
+const volumePercent = Math.max(0, Math.min(100, parseInt(process.env.CLAUDE_PLUGIN_OPTION_VOLUME || "50", 10)));
+const volumeNormalized = volumePercent / 100; // 0.0 - 1.0
+
 // Play using the platform's audio player
 const os = platform();
 let player;
 
 if (os === "darwin") {
-  // macOS
-  player = spawn("afplay", [filePath], { stdio: "ignore" });
+  // macOS — afplay uses 0.0 to 1.0 scale
+  player = spawn("afplay", ["-v", String(volumeNormalized), filePath], { stdio: "ignore" });
 } else if (os === "win32") {
-  // Windows — use PowerShell to play mp3 via Windows Media Player COM object
+  // Windows — MediaPlayer.Volume uses 0.0 to 1.0 scale
   const psScript = `
     Add-Type -AssemblyName presentationCore
     $player = New-Object System.Windows.Media.MediaPlayer
     $player.Open([Uri]"${filePath.replace(/\\/g, "\\\\")}")
+    $player.Volume = ${volumeNormalized}
     $player.Play()
     Start-Sleep -Milliseconds 500
     while ($player.Position -lt $player.NaturalDuration.TimeSpan) { Start-Sleep -Milliseconds 200 }
@@ -46,9 +51,9 @@ if (os === "darwin") {
     try {
       const args =
         cmd === "ffplay"
-          ? ["-nodisp", "-autoexit", filePath]
+          ? ["-nodisp", "-autoexit", "-volume", String(volumePercent), filePath]
           : cmd === "mpv"
-            ? ["--no-video", filePath]
+            ? ["--no-video", `--volume=${volumePercent}`, filePath]
             : [filePath];
       player = spawn(cmd, args, { stdio: "ignore" });
       break;
