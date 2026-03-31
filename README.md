@@ -36,6 +36,16 @@ Each time, a random `.mp3` from the `sounds/` folder is played using the platfor
 | Windows | PowerShell `System.Windows.Media.MediaPlayer` (built-in) |
 | Linux | `mpv`, `ffplay`, or `paplay` (install one) |
 
+## Volume
+
+The default volume is 50 (out of 100). To change it, edit the `VOLUME` value in `hooks/hooks.json`:
+
+```json
+"command": "VOLUME=75 node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\""
+```
+
+Set `VOLUME` to any value from `0` (silent) to `100` (max).
+
 ## Adding your own sounds
 
 Drop any `.mp3` file into the `sounds/` folder and it will be included in the random rotation.

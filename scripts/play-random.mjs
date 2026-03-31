@@ -19,8 +19,8 @@ if (files.length === 0) {
 const file = files[Math.floor(Math.random() * files.length)];
 const filePath = join(soundsDir, file);
 
-// Volume: 0-100 from userConfig, default 50
-const volumePercent = Math.max(0, Math.min(100, parseInt(process.env.CLAUDE_PLUGIN_OPTION_VOLUME || "50", 10)));
+// Volume: 0-100, check VOLUME env var first, then CLAUDE_PLUGIN_OPTION_VOLUME, default 50
+const volumePercent = Math.max(0, Math.min(100, parseInt(process.env.VOLUME || process.env.CLAUDE_PLUGIN_OPTION_VOLUME || "50", 10)));
 const volumeNormalized = volumePercent / 100; // 0.0 - 1.0
 
 // Play using the platform's audio player

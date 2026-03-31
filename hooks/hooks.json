@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\"",
+            "command": "VOLUME=50 node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\"",
             "timeout": 10,
             "async": true
           }
@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\"",
+            "command": "VOLUME=50 node \"${CLAUDE_PLUGIN_ROOT}/scripts/play-random.mjs\"",
             "timeout": 10,
             "async": true
           }
