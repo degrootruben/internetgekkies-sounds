@@ -1,23 +1,47 @@
 #!/usr/bin/env node
 
-import { readdirSync } from "fs";
+import { readdirSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { spawn } from "child_process";
 import { fileURLToPath } from "url";
-import { platform } from "os";
+import { platform, homedir } from "os";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const soundsDir = join(__dirname, "..", "sounds");
 
-// Get all mp3 files
-const files = readdirSync(soundsDir).filter((f) => f.endsWith(".mp3"));
-if (files.length === 0) {
+// Collect mp3 files from the default sounds dir and any installed sound packs
+const soundsDirs = [join(__dirname, "..", "sounds")];
+
+// Scan ~/.claude/sound-packs/*/sounds/ for extra packs
+const packsRoot = join(homedir(), ".claude", "sound-packs");
+if (existsSync(packsRoot)) {
+  for (const entry of readdirSync(packsRoot, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      const packSoundsDir = join(packsRoot, entry.name, "sounds");
+      if (existsSync(packSoundsDir)) {
+        soundsDirs.push(packSoundsDir);
+      }
+    }
+  }
+}
+
+// Gather all mp3 files with their full paths
+const allFiles = [];
+for (const dir of soundsDirs) {
+  try {
+    for (const file of readdirSync(dir).filter((f) => f.endsWith(".mp3"))) {
+      allFiles.push(join(dir, file));
+    }
+  } catch {
+    continue;
+  }
+}
+
+if (allFiles.length === 0) {
   process.exit(0);
 }
 
 // Pick a random sound
-const file = files[Math.floor(Math.random() * files.length)];
-const filePath = join(soundsDir, file);
+const filePath = allFiles[Math.floor(Math.random() * allFiles.length)];
 
 // Volume: 0-100, check VOLUME env var first, then CLAUDE_PLUGIN_OPTION_VOLUME, default 50
 const volumePercent = Math.max(0, Math.min(100, parseInt(process.env.VOLUME || process.env.CLAUDE_PLUGIN_OPTION_VOLUME || "50", 10)));
