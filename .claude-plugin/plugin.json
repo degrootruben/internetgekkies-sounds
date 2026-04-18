@@ -1,6 +1,6 @@
 {
   "name": "internetgekkies-sounds",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Plays random iconic Dutch Internetgekkies sound clips when Claude finishes a task or sends a notification",
   "author": {
     "name": "degrootruben",
