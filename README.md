@@ -21,12 +21,14 @@ claude --plugin-dir ~/Projects/internetgekkies-sounds
 
 ## How it works
 
-The plugin registers hooks on two events:
+The plugin registers hooks on four events:
 
 - **Stop** — when Claude finishes responding
+- **StopFailure** — when a turn ends due to an API error (rate limit, server error, etc.)
 - **Notification** — when Claude sends a notification (permission prompts, idle prompts, etc.)
+- **SessionStart** — when a new session begins
 
-Each time, a random `.mp3` from the `sounds/` folder is played using the platform's native audio player.
+Each time, a random `.mp3` is played using the platform's native audio player.
 
 ## Platform support
 
@@ -46,9 +48,25 @@ The default volume is 50 (out of 100). To change it, edit the `VOLUME` value in 
 
 Set `VOLUME` to any value from `0` (silent) to `100` (max).
 
+## Event-based sounds
+
+You can assign different sounds to different events by creating subfolders in `sounds/`:
+
+```
+sounds/
+  stop/           ← played when Claude finishes responding
+  error/          ← played on API errors (rate limit, server error)
+  notification/   ← played on permission/idle prompts
+  startup/        ← played when a new session starts
+  default/        ← fallback for any event without its own folder
+  *.mp3           ← root fallback (current behavior, always works)
+```
+
+The script picks sounds using a fallback chain: `sounds/<event>/` → `sounds/default/` → `sounds/` (root). If no event subfolder exists, the root sounds are used — so existing setups work without changes.
+
 ## Adding your own sounds
 
-Drop any `.mp3` file into the `sounds/` folder and it will be included in the random rotation.
+Drop any `.mp3` file into the `sounds/` folder and it will be included in the random rotation for all events. To target a specific event, place the file in the corresponding subfolder instead.
 
 ## Included sounds
 

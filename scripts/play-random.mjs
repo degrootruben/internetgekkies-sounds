@@ -1,23 +1,45 @@
 #!/usr/bin/env node
 
-import { readdirSync } from "fs";
+import { readdirSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { spawn } from "child_process";
 import { fileURLToPath } from "url";
 import { platform } from "os";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const soundsDir = join(__dirname, "..", "sounds");
+const soundsRoot = join(__dirname, "..", "sounds");
 
-// Get all mp3 files
-const files = readdirSync(soundsDir).filter((f) => f.endsWith(".mp3"));
-if (files.length === 0) {
+// Event-based sound selection: SOUND_EVENT env var determines which subfolder to use
+// Fallback chain: sounds/<event>/ → sounds/default/ → sounds/ (root)
+const event = process.env.SOUND_EVENT;
+
+function getMp3Files(dir) {
+  try {
+    return existsSync(dir)
+      ? readdirSync(dir).filter((f) => f.endsWith(".mp3")).map((f) => join(dir, f))
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+let allFiles = [];
+if (event) {
+  allFiles = getMp3Files(join(soundsRoot, event));
+}
+if (allFiles.length === 0) {
+  allFiles = getMp3Files(join(soundsRoot, "default"));
+}
+if (allFiles.length === 0) {
+  allFiles = getMp3Files(soundsRoot);
+}
+
+if (allFiles.length === 0) {
   process.exit(0);
 }
 
 // Pick a random sound
-const file = files[Math.floor(Math.random() * files.length)];
-const filePath = join(soundsDir, file);
+const filePath = allFiles[Math.floor(Math.random() * allFiles.length)];
 
 // Volume: 0-100, check VOLUME env var first, then CLAUDE_PLUGIN_OPTION_VOLUME, default 50
 const volumePercent = Math.max(0, Math.min(100, parseInt(process.env.VOLUME || process.env.CLAUDE_PLUGIN_OPTION_VOLUME || "50", 10)));
