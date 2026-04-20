@@ -46,6 +46,20 @@ The default volume is 50 (out of 100). To change it, edit the `VOLUME` value in 
 
 Set `VOLUME` to any value from `0` (silent) to `100` (max).
 
+## Sound packs
+
+The plugin supports community sound packs. Install extra packs by cloning them into `~/.claude/sound-packs/`:
+
+```bash
+mkdir -p ~/.claude/sound-packs
+cd ~/.claude/sound-packs
+git clone https://github.com/someone/their-pack
+```
+
+Any `.mp3` files in `<pack>/sounds/` are automatically added to the random rotation alongside the built-in sounds.
+
+See [COMMUNITY_PACKS.md](COMMUNITY_PACKS.md) for available packs and [CONTRIBUTING.md](CONTRIBUTING.md) to create your own.
+
 ## Adding your own sounds
 
 Drop any `.mp3` file into the `sounds/` folder and it will be included in the random rotation.
